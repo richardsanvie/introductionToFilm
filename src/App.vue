@@ -50,6 +50,9 @@ function mostraSaldoFuturo() {
   return estado.saldo - estado.transferindo;
 }
 
+function validaValor(){
+  return estado.saldo >= estado.transferindo;  
+}
 
 </script>
 
@@ -57,8 +60,11 @@ function mostraSaldoFuturo() {
   <div class="containerBank">
     <p>Saldo: {{ estado.saldo }}</p>
     <p>Transferindo: {{ estado.transferindo }}</p>
-    <p>Saldo após a transfêrencia: {{ mostraSaldoFuturo()}}</p>
-    <input type="number" @keyup="evento1 => estado.transferindo = evento1.target.value">
+    <p>Saldo após a transfêrencia: {{ mostraSaldoFuturo() }}</p>
+    <input :class="{ invalido: !validaValor() }" type="number"
+      @keyup="evento1 => estado.transferindo = evento1.target.value">
+    <button v-if="validaValor()">Transferir</button>
+    <span v-else>Saldo insuficiente</span>
   </div>
   <hr>
   <div class="containerEmail">
@@ -105,6 +111,11 @@ function mostraSaldoFuturo() {
 #img {
   margin-bottom: 10px;
   width: 100px;
+}
+
+.invalido {
+  outline-color: red;
+  border-color: red;
 }
 
 .container2 {
