@@ -1,4 +1,6 @@
 <script setup>
+import { reactive } from 'vue';
+
 const nome = "Ya"
 
 const pessoa = {
@@ -18,10 +20,43 @@ const btn = false
 const blueContainer = false
 const greenContainer = false
 
+// containerContador
+
+const estado = reactive({
+  contador: 0,
+  email: ''
+})
+
+
+function incrementar() {
+  estado.contador++;
+}
+
+function decrementar() {
+  estado.contador--;
+}
+
+// containerEmail
+
+function repeteEmail(nombreEmail){
+  estado.email = nombreEmail.target.value
+}
 
 </script>
 
 <template>
+  <div class="containerEmail">
+    <input type="email" name="" @keyup="repeteEmail">
+    <p>{{ estado.email }}</p>
+
+  </div>
+  <hr>
+  <div class="containerContador">
+    <p>{{ estado.contador }}</p>
+    <button @click="incrementar">+</button>
+    <button @click="decrementar">-</button>
+  </div>
+  <hr>
   <h1>{{ nome }}</h1>
   <p>{{ pessoa.nome }}</p>
   <p>{{ pessoa.age }}</p>
@@ -36,7 +71,7 @@ const greenContainer = false
     </div>
     <div class="containerIntern1" v-else-if="greenContainer">
     </div>
-    <div v-else class="containerIntern2">    
+    <div v-else class="containerIntern2">
       <img :src="imageRandom" id="img">
     </div>
   </div>
