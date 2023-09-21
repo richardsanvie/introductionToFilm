@@ -24,7 +24,9 @@ const greenContainer = false
 
 const estado = reactive({
   contador: 0,
-  email: ''
+  email: 0,
+  saldo: 5000,
+  transferindo: 0
 })
 
 
@@ -38,15 +40,29 @@ function decrementar() {
 
 // containerEmail
 
-function repeteEmail(nombreEmail){
-  estado.email = nombreEmail.target.value
+function alteraEmail(evento) {
+  estado.email = evento.target.value
 }
+
+// containerBank
+
+function mostraSaldoFuturo() {
+  return estado.saldo - estado.transferindo;
+}
+
 
 </script>
 
 <template>
+  <div class="containerBank">
+    <p>Saldo: {{ estado.saldo }}</p>
+    <p>Transferindo: {{ estado.transferindo }}</p>
+    <p>Saldo após a transfêrencia: {{ mostraSaldoFuturo()}}</p>
+    <input type="number" @keyup="evento1 => estado.transferindo = evento1.target.value">
+  </div>
+  <hr>
   <div class="containerEmail">
-    <input type="email" name="" @keyup="repeteEmail">
+    <input type="email" @keyup="alteraEmail">
     <p>{{ estado.email }}</p>
 
   </div>
