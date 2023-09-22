@@ -26,7 +26,10 @@ const estado = reactive({
   contador: 0,
   email: 0,
   saldo: 5000,
-  transferindo: 0
+  transferindo: 0,
+  nomes: ['Jo', 'Ye', 'He'],
+  nomeAInserir: ''
+
 })
 
 
@@ -50,13 +53,34 @@ function mostraSaldoFuturo() {
   return estado.saldo - estado.transferindo;
 }
 
-function validaValor(){
-  return estado.saldo >= estado.transferindo;  
+function validaValor() {
+  return estado.saldo >= estado.transferindo;
 }
+
+// List names
+
+function cadastrarNome() {
+  if (estado.nomeAInserir.length >= 3) {
+    estado.nomes.push(estado.nomeAInserir)
+  } else {
+    alert("Digite mais caracteres")
+  }
+}
+
 
 </script>
 
 <template>
+  <div class="containerLise">
+    <ul>
+      <li v-for="listnames in estado.nomes">{{ listnames }}</li>
+    </ul>
+    <input type="text" placeholder="Insere novo nome" @keyup="evento7 => estado.nomeAInserir = evento7.target.value">
+    <button @click="cadastrarNome">Inserir</button>
+  </div>
+
+  <hr>
+
   <div class="containerBank">
     <p>Saldo: {{ estado.saldo }}</p>
     <p>Transferindo: {{ estado.transferindo }}</p>
